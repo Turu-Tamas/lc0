@@ -95,7 +95,7 @@ option('dx',
 
 option('tensorflow',
        type: 'boolean',
-       value: false,
+       value: true,
        description: 'Enable TensorFlow backend')
 
 option('onednn',
