@@ -281,6 +281,14 @@ class GameState {
                             history_, 8, FillEmptyHistory::FEN_ONLY, &tmp));
   }
 
+  std::unique_ptr<Input> as_input_from_format(int format) const {
+    int tmp;
+    return std::make_unique<Input>(
+      EncodePositionForNN(static_cast<pblczero::NetworkFormat::InputFormat>(format),
+        history_, 8, FillEmptyHistory::FEN_ONLY, &tmp
+      ));
+  }
+
   std::vector<std::string> moves() const {
     auto ms = history_.Last().GetBoard().GenerateLegalMoves();
     bool is_black = history_.IsBlackToMove();

@@ -117,6 +117,7 @@ game_state.AddMethod('as_input').AddParameter(
 game_state.AddMethod('moves').AddRetVal(ListOfStringsRetVal())
 game_state.AddMethod('policy_indices').AddRetVal(IntegralTupleRetVal('i'))
 game_state.AddMethod('as_string').AddRetVal(StringRetVal())
+game_state.AddMethod('as_input_from_format').AddParameter(NumericParameter('format')).AddRetVal(ObjOwnerRetval(input)).AddEx(ex)
 
 with open(sys.argv[1], 'wt') as f:
     writer = Writer(f)
