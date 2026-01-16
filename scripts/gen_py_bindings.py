@@ -33,7 +33,7 @@ from pybind.parameters import (StringParameter, ClassParameter,
                                ListOfStringsParameter)
 from pybind.retval import (StringViewRetVal, StringRetVal, ListOfStringsRetVal,
                            NumericRetVal, ObjCopyRetval, ObjOwnerRetval,
-                           ObjTupleRetVal, IntegralTupleRetVal)
+                           ObjTupleRetVal, IntegralTupleRetVal, ListOfFloatRetVal)
 from pybind.exceptions import CppException
 
 # Module
@@ -70,6 +70,7 @@ input.AddMethod('mask').AddParameter(NumericParameter('plane')).AddRetVal(
 input.AddMethod('val').AddParameter(NumericParameter('plane')).AddRetVal(
     NumericRetVal('f32')).AddEx(ex)
 input.AddMethod('clone').AddRetVal(ObjOwnerRetval(input))
+input.AddMethod('GetRawInputOnnx').AddRetVal(ListOfFloatRetVal())
 
 # Output class
 output = mod.AddClass(

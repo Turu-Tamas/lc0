@@ -111,6 +111,22 @@ class Input {
   std::unique_ptr<Input> clone() const {
     return std::make_unique<Input>(data_);
   }
+  std::vector<float> GetRawInputOnnx() const {
+    std::vector<float> result;
+    result.resize(kInputPlanes * 8 * 8);
+    std::fill(result.begin(), result.end(), 0);
+    auto iter = result.begin();
+
+    for (const auto &plane : data_) {
+      float value = plane.value;
+      for (auto bit : IterateBits(plane.mask)) {
+        *(iter + bit) = value;
+      }
+      iter += 64;
+    }
+
+    return result;
+  }
 
   // Not exported.
   const InputPlanes GetPlanes() const { return data_; }

@@ -88,6 +88,17 @@ class ListOfStringsRetVal(RetVal):
                 'i, Py_BuildValue("s#", s.data(), s.size()));')
         w.Close('}')
 
+class ListOfFloatRetVal(RetVal):
+    def cpp_type(self):
+        return 'std::vector<float>'
+    
+    def GenerateConversion(self, w):
+        w.Write(f'{self.py_val()} = PyList_New({self.cpp_val()}.size());')
+        w.Open(f'for (size_t i = 0; i < {self.cpp_val()}.size(); ++i) {{')
+        w.Write(f'const float& f = {self.cpp_val()}[i];')
+        w.Write(f'PyList_SetItem({self.py_val()}, '
+                'i, Py_BuildValue("f", f));')
+        w.Close('}')
 
 class NumericRetVal(RetVal):
     def __init__(self, type):
